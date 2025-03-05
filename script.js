@@ -699,9 +699,7 @@ var snowStorm = (function (window, document) {
 document.addEventListener("DOMContentLoaded", function () {
   var toggleButton = document.createElement("button");
   toggleButton.innerText = "Toggle Light/Dark Mode";
-  toggleButton.style.position = "fixed";
-  toggleButton.style.top = "10px";
-  toggleButton.style.right = "10px";
+  toggleButton.classList.add("toggle-button");
   document.body.appendChild(toggleButton);
 
   toggleButton.addEventListener("click", function () {
