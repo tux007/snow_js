@@ -661,7 +661,6 @@ var snowStorm = (function (window, document) {
             .getComputedStyle(storm.targetElement, null)
             .getPropertyValue("position") === "relative";
       } catch (e) {
-        // oh well
         targetElementIsRelative = false;
       }
     }
@@ -676,7 +675,6 @@ var snowStorm = (function (window, document) {
     window.setTimeout(function () {
       storm.start(true);
     }, 20);
-    // event cleanup
     storm.events.remove(isIE ? document : window, "mousemove", doDelayedStart);
   }
 
@@ -684,11 +682,9 @@ var snowStorm = (function (window, document) {
     if (!storm.excludeMobile || !isMobile) {
       doDelayedStart();
     }
-    // event cleanup
     storm.events.remove(window, "load", doStart);
   }
 
-  // hooks for starting the snow
   if (storm.autoStart) {
     storm.events.add(window, "load", doStart, false);
   }
@@ -696,18 +692,17 @@ var snowStorm = (function (window, document) {
   return this;
 })(window, document);
 
-document.addEventListener("DOMContentLoaded", function () {
-  var toggleButton = document.createElement("button");
-  toggleButton.innerText = "Toggle Light/Dark Mode";
-  toggleButton.classList.add("toggle-button");
-  document.body.appendChild(toggleButton);
-
-  toggleButton.addEventListener("click", function () {
-    document.body.classList.toggle("light-mode");
-    var isLightMode = document.body.classList.contains("light-mode");
-    snowStorm.snowColor = isLightMode ? "#808080" : "#ffffff";
-    snowStorm.flakes.forEach(function (flake) {
-      flake.o.style.color = snowStorm.snowColor;
-    });
+document.getElementById("checkbox").addEventListener("change", function () {
+  if (this.checked) {
+    document.body.classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+    snowStorm.snowColor = "#000000";
+  } else {
+    document.body.classList.add("dark-mode");
+    document.body.classList.remove("light-mode");
+    snowStorm.snowColor = "#ffffff";
+  }
+  snowStorm.flakes.forEach(function (flake) {
+    flake.o.style.color = snowStorm.snowColor;
   });
 });
